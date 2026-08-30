@@ -1,6 +1,6 @@
 // ─── 여기에 Google Sheet ID를 입력하세요 ───────────────────────────────────────
 // Sheet URL: https://docs.google.com/spreadsheets/d/[여기가 ID]/edit
-const SHEET_ID = '';
+const SHEET_ID = '1rxa2-AbbRPynmfWsMI3p0GKQIL2j9c7Xz9voauTv35g';
 
 // ─── 시트 데이터 fetching ─────────────────────────────────────────────────────
 async function fetchSheet(name) {

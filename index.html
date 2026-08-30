@@ -1,0 +1,893 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Uisce Beatha — Since 2023, Whiskey & Classic Cocktail. 인천 청라 위스키 바.">
+  <title>Uisce Beatha</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300&family=Noto+Sans+KR:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0a;
+      --fg: #f5f5f5;
+      --accent: #c8a96e;
+      --muted: #777;
+      --border: #1e1e1e;
+      --card: #111;
+      --tag-bg: #1a1a1a;
+      --tag-active: #c8a96e;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 300;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: rgba(10,10,10,0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      height: 56px;
+    }
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem;
+      letter-spacing: 0.12em;
+      color: var(--fg);
+      text-decoration: none;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      list-style: none;
+    }
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--fg); }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 22px;
+      height: 1px;
+      background: var(--fg);
+      transition: all 0.3s;
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 56px; left: 0; right: 0;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      z-index: 99;
+      padding: 20px;
+    }
+    .mobile-menu.open { display: block; }
+    .mobile-menu a {
+      display: block;
+      color: var(--fg);
+      text-decoration: none;
+      font-size: 0.9rem;
+      letter-spacing: 0.06em;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      .hamburger { display: flex; }
+    }
+
+    /* HERO */
+    #hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 80px 24px 40px;
+      position: relative;
+    }
+    #hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at center, #1a1208 0%, #0a0a0a 70%);
+      z-index: 0;
+    }
+    .hero-inner { position: relative; z-index: 1; }
+    .hero-sub {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+    }
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.8rem, 10vw, 5.5rem);
+      font-weight: 300;
+      letter-spacing: 0.08em;
+      line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .hero-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(0.85rem, 2.5vw, 1rem);
+      letter-spacing: 0.2em;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .hero-tagline {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.9;
+      max-width: 280px;
+      margin: 0 auto 40px;
+    }
+    .hero-tagline em {
+      display: block;
+      font-style: normal;
+      color: var(--fg);
+    }
+    .hero-cta-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 28px;
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-decoration: none;
+      border: 1px solid;
+      transition: all 0.25s;
+      cursor: pointer;
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 400;
+    }
+    .btn-primary {
+      background: var(--fg);
+      color: var(--bg);
+      border-color: var(--fg);
+    }
+    .btn-primary:hover { background: var(--accent); border-color: var(--accent); }
+    .btn-outline {
+      background: transparent;
+      color: var(--fg);
+      border-color: #333;
+    }
+    .btn-outline:hover { border-color: var(--fg); }
+    .scroll-hint {
+      position: absolute;
+      bottom: 32px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--muted);
+      font-size: 0.7rem;
+      letter-spacing: 0.15em;
+      animation: float 2s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100%{transform:translateX(-50%) translateY(0)} 50%{transform:translateX(-50%) translateY(6px)} }
+
+    /* SECTIONS */
+    section { padding: 80px 20px; }
+    .section-label {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.3em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2.8rem);
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      margin-bottom: 40px;
+    }
+    .container { max-width: 680px; margin: 0 auto; }
+
+    /* MENU TABS */
+    .menu-tabs {
+      display: flex;
+      overflow-x: auto;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 40px;
+      scrollbar-width: none;
+    }
+    .menu-tabs::-webkit-scrollbar { display: none; }
+    .tab-btn {
+      flex-shrink: 0;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      padding: 12px 18px;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1px;
+      transition: all 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn.active { color: var(--fg); border-bottom-color: var(--accent); }
+    .tab-btn:hover { color: var(--fg); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* MENU SUB TABS */
+    .sub-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+    .sub-tab-btn {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.05em;
+      padding: 6px 14px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border-radius: 2px;
+    }
+    .sub-tab-btn.active { color: var(--bg); background: var(--accent); border-color: var(--accent); }
+
+    /* MENU ITEMS */
+    .menu-group { margin-bottom: 48px; }
+    .menu-group-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 20px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+    .menu-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .menu-item:last-child { border-bottom: none; }
+    .menu-item-info { flex: 1; }
+    .menu-item-name {
+      font-size: 0.9rem;
+      font-weight: 400;
+      margin-bottom: 2px;
+    }
+    .menu-item-name-en {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.78rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .menu-item-desc {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 4px;
+      line-height: 1.6;
+    }
+    .menu-item-alc {
+      font-size: 0.7rem;
+      color: #555;
+      margin-top: 3px;
+    }
+    .menu-item-price {
+      text-align: right;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .price-main {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      color: var(--fg);
+    }
+    .price-sub {
+      font-size: 0.7rem;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    .menu-note {
+      font-size: 0.75rem;
+      color: var(--muted);
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 16px;
+    }
+
+    /* TASTING COURSE */
+    .course-card {
+      border: 1px solid var(--border);
+      padding: 20px;
+      margin-bottom: 16px;
+      background: var(--card);
+    }
+    .course-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 6px;
+    }
+    .course-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+    .course-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .course-items {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    .course-desc { font-size: 0.78rem; color: #666; }
+
+    /* RECOMMEND */
+    #recommend { background: #080808; }
+    .rec-mode-toggle {
+      display: flex;
+      border: 1px solid var(--border);
+      margin-bottom: 32px;
+      overflow: hidden;
+    }
+    .rec-mode-btn {
+      flex: 1;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.8rem;
+      padding: 12px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.05em;
+    }
+    .rec-mode-btn.active { background: var(--fg); color: var(--bg); }
+
+    /* TAG FILTER */
+    .tag-section { margin-bottom: 28px; }
+    .tag-section-label {
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+      margin-bottom: 12px;
+      text-transform: uppercase;
+    }
+    .tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .tag {
+      background: var(--tag-bg);
+      border: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.78rem;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+      border-radius: 2px;
+      user-select: none;
+    }
+    .tag.selected { background: var(--accent); border-color: var(--accent); color: var(--bg); font-weight: 500; }
+    .rec-results {
+      margin-top: 32px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+    }
+    .rec-results-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 16px;
+      text-transform: uppercase;
+    }
+    .rec-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 12px;
+    }
+    .rec-item-left .name { font-size: 0.88rem; font-weight: 400; }
+    .rec-item-left .type { font-size: 0.72rem; color: var(--muted); margin-top: 2px; }
+    .rec-item-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.9rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+    .rec-empty {
+      font-size: 0.85rem;
+      color: var(--muted);
+      padding: 24px 0;
+      text-align: center;
+    }
+
+    /* WIZARD */
+    #wizard { display: none; }
+    .wizard-step { display: none; }
+    .wizard-step.active { display: block; }
+    .wizard-q {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 300;
+      margin-bottom: 24px;
+      line-height: 1.4;
+    }
+    .wizard-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .wizard-option {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: 0.85rem;
+      padding: 16px 20px;
+      cursor: pointer;
+      text-align: left;
+      transition: all 0.2s;
+      letter-spacing: 0.03em;
+    }
+    .wizard-option:hover { border-color: var(--accent); color: var(--accent); }
+    .wizard-option small { display: block; font-size: 0.72rem; color: var(--muted); margin-top: 3px; }
+    .wizard-back {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 0.78rem;
+      cursor: pointer;
+      margin-bottom: 20px;
+      letter-spacing: 0.06em;
+      padding: 0;
+    }
+    .wizard-back:hover { color: var(--fg); }
+    .wizard-result {
+      border: 1px solid var(--border);
+      padding: 24px;
+      background: var(--card);
+      margin-top: 8px;
+    }
+    .wizard-result h3 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1rem;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .wizard-result-item {
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.85rem;
+    }
+    .wizard-result-item:last-child { border-bottom: none; }
+    .wizard-result-item .rname { font-weight: 400; }
+    .wizard-result-item .rdesc { font-size: 0.75rem; color: var(--muted); margin-top: 3px; }
+
+    /* INFO */
+    #info { background: var(--bg); }
+    .info-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+    @media (min-width: 560px) { .info-grid { grid-template-columns: 1fr 1fr; } }
+    .info-block { }
+    .info-block-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.25em;
+      color: var(--accent);
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    .info-block p {
+      font-size: 0.83rem;
+      color: var(--muted);
+      line-height: 1.9;
+    }
+    .info-block p strong { color: var(--fg); font-weight: 400; }
+    .hours-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.82rem;
+      padding: 6px 0;
+      border-bottom: 1px solid var(--border);
+      gap: 16px;
+    }
+    .hours-row:last-child { border-bottom: none; }
+    .hours-day { color: var(--muted); }
+    .hours-time { color: var(--fg); }
+
+    /* RESERVE */
+    #reserve {
+      text-align: center;
+      padding: 80px 20px;
+      background: #080808;
+    }
+    .reserve-note {
+      font-size: 0.82rem;
+      color: var(--muted);
+      margin-bottom: 32px;
+      line-height: 1.9;
+    }
+    .call-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: transparent;
+      border: 1px solid var(--fg);
+      color: var(--fg);
+      font-size: 1.2rem;
+      letter-spacing: 0.08em;
+      padding: 16px 40px;
+      text-decoration: none;
+      font-family: 'Cormorant Garamond', serif;
+      transition: all 0.25s;
+    }
+    .call-btn:hover { background: var(--fg); color: var(--bg); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 36px 20px;
+      text-align: center;
+    }
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 16px;
+    }
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      margin-bottom: 20px;
+    }
+    .social-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      letter-spacing: 0.1em;
+      transition: color 0.2s;
+    }
+    .social-links a:hover { color: var(--fg); }
+    .footer-info {
+      font-size: 0.72rem;
+      color: #444;
+      line-height: 1.9;
+    }
+    .keeping-note {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 16px 20px;
+      margin-bottom: 32px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.8;
+    }
+    .keeping-note strong { color: var(--fg); }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">Uisce Beatha</a>
+  <ul class="nav-links">
+    <li><a href="#menu">MENU</a></li>
+    <li><a href="#recommend">RECOMMEND</a></li>
+    <li><a href="#info">INFO</a></li>
+    <li><a href="#reserve">RESERVE</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger" aria-label="메뉴 열기">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <a href="#menu" onclick="closeMobile()">MENU</a>
+  <a href="#recommend" onclick="closeMobile()">RECOMMEND</a>
+  <a href="#info" onclick="closeMobile()">INFO</a>
+  <a href="#reserve" onclick="closeMobile()">예약 / 문의</a>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-inner">
+    <p class="hero-sub">Since 2023 · Incheon Cheongna</p>
+    <h1 class="hero-title">Uisce<br>Beatha</h1>
+    <p class="hero-subtitle">Whiskey &amp; Classic Cocktail</p>
+    <p class="hero-tagline">
+      <em>첫 잔이 가장 중요합니다.</em>
+      바텐더에게 묻는 걸 어려워하지 않아도 됩니다.<br>
+      주문과 요청 시 손만 살짝 들어주세요.
+    </p>
+    <div class="hero-cta-group">
+      <a href="#menu" class="btn btn-primary">메뉴 보기</a>
+      <a href="#recommend" class="btn btn-outline">추천 받기</a>
+    </div>
+  </div>
+  <span class="scroll-hint">&#x2193; scroll</span>
+</section>
+
+<!-- MENU -->
+<section id="menu">
+  <div class="container">
+    <p class="section-label">Menu</p>
+    <h2 class="section-title">메뉴</h2>
+
+    <div class="menu-tabs" id="menu-tabs">
+      <button class="tab-btn active" data-tab="signature">SIGNATURE</button>
+      <button class="tab-btn" data-tab="cocktail">COCKTAIL</button>
+      <button class="tab-btn" data-tab="whiskey">WHISKEY</button>
+      <button class="tab-btn" data-tab="food">FOOD</button>
+      <button class="tab-btn" data-tab="tasting">TASTING COURSE</button>
+      <button class="tab-btn" data-tab="bottle">BOTTLE</button>
+      <button class="tab-btn" data-tab="other">기타</button>
+    </div>
+
+    <!-- SIGNATURE -->
+    <div class="tab-panel active" id="tab-signature">
+      <div id="render-signature"></div>
+    </div>
+
+    <!-- COCKTAIL -->
+    <div class="tab-panel" id="tab-cocktail">
+      <div class="sub-tabs" id="cocktail-sub-tabs"></div>
+      <div id="render-cocktail"></div>
+    </div>
+
+    <!-- WHISKEY -->
+    <div class="tab-panel" id="tab-whiskey">
+      <div class="menu-note">
+        Glass 30ml / 60ml · HALF(15ml)은 4만원 이상 위스키에 한해 정가의 60% 가격으로 제공됩니다. 하이볼 변경 시 +₩10,000
+      </div>
+      <div class="sub-tabs" id="whiskey-sub-tabs"></div>
+      <div id="render-whiskey"></div>
+    </div>
+
+    <!-- FOOD -->
+    <div class="tab-panel" id="tab-food">
+      <div id="render-food"></div>
+    </div>
+
+    <!-- TASTING COURSE -->
+    <div class="tab-panel" id="tab-tasting">
+      <div class="menu-note">각 15ml씩 3가지 위스키 제공</div>
+      <div id="render-tasting"></div>
+    </div>
+
+    <!-- BOTTLE -->
+    <div class="tab-panel" id="tab-bottle">
+      <div class="keeping-note">
+        <strong>Keeping</strong> — 기간 1개월 · 키핑 차지 1인 ₩10,000<br>
+        <strong>Corkage</strong> — 와인 1 Bottle ₩100,000 · 증류주 1 Bottle ₩150,000
+      </div>
+      <div id="render-bottle"></div>
+    </div>
+
+    <!-- OTHER -->
+    <div class="tab-panel" id="tab-other">
+      <div class="sub-tabs" id="other-sub-tabs"></div>
+      <div id="render-other"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RECOMMEND -->
+<section id="recommend">
+  <div class="container">
+    <p class="section-label">Recommendation</p>
+    <h2 class="section-title">추천 받기</h2>
+
+    <div class="rec-mode-toggle">
+      <button class="rec-mode-btn active" id="btn-tag-mode">태그로 찾기</button>
+      <button class="rec-mode-btn" id="btn-wizard-mode">질문으로 추천</button>
+    </div>
+
+    <!-- TAG MODE -->
+    <div id="tag-mode">
+      <div class="tag-section">
+        <div class="tag-section-label">맛 · 스타일</div>
+        <div class="tags" id="taste-tags">
+          <span class="tag" data-tag="달콤한">달콤한</span>
+          <span class="tag" data-tag="상큼한">상큼한</span>
+          <span class="tag" data-tag="쌉쌀한">쌉쌀한</span>
+          <span class="tag" data-tag="스모키">스모키</span>
+          <span class="tag" data-tag="부드러운">부드러운</span>
+          <span class="tag" data-tag="과일향">과일향</span>
+          <span class="tag" data-tag="탄산있는">탄산있는</span>
+          <span class="tag" data-tag="강렬한">강렬한</span>
+        </div>
+      </div>
+      <div class="tag-section">
+        <div class="tag-section-label">도수</div>
+        <div class="tags" id="alc-tags">
+          <span class="tag" data-tag="가볍게">가볍게 (~15%)</span>
+          <span class="tag" data-tag="중간">중간 (15~25%)</span>
+          <span class="tag" data-tag="강하게">강하게 (25%+)</span>
+        </div>
+      </div>
+      <div class="tag-section">
+        <div class="tag-section-label">카테고리</div>
+        <div class="tags" id="type-tags">
+          <span class="tag" data-tag="칵테일">칵테일</span>
+          <span class="tag" data-tag="위스키">위스키</span>
+          <span class="tag" data-tag="입문자">입문자 추천</span>
+        </div>
+      </div>
+      <div class="rec-results" id="tag-results" style="display:none">
+        <div class="rec-results-title">추천 메뉴</div>
+        <div id="tag-results-list"></div>
+      </div>
+    </div>
+
+    <!-- WIZARD MODE -->
+    <div id="wizard" style="display:none">
+      <div class="wizard-step active" id="ws-0">
+        <p class="wizard-q">오늘 어떤 기분으로 오셨나요?</p>
+        <div class="wizard-options">
+          <button class="wizard-option" onclick="wizardGo('light')">가볍게 한 잔 마시고 싶어요 <small>도수 낮게, 부담 없이</small></button>
+          <button class="wizard-option" onclick="wizardGo('proper')">제대로 한 잔 즐기고 싶어요 <small>칵테일 또는 위스키</small></button>
+          <button class="wizard-option" onclick="wizardGo('whiskey')">위스키가 궁금해요 <small>처음이거나 더 알고 싶어요</small></button>
+          <button class="wizard-option" onclick="wizardResult('signature')">바텐더님께 맡길게요 <small>시그니처 추천</small></button>
+        </div>
+      </div>
+      <div class="wizard-step" id="ws-light">
+        <button class="wizard-back" onclick="wizardBack('ws-0')">← 이전으로</button>
+        <p class="wizard-q">어떤 맛을 원하세요?</p>
+        <div class="wizard-options">
+          <button class="wizard-option" onclick="wizardResult('light-sweet')">달콤하게 <small>과일향, 부드러운 거품</small></button>
+          <button class="wizard-option" onclick="wizardResult('light-citrus')">상큼하게 <small>라임·레몬, 청량하게</small></button>
+          <button class="wizard-option" onclick="wizardResult('light-fizz')">탄산 있게 <small>시원하고 가볍게</small></button>
+        </div>
+      </div>
+      <div class="wizard-step" id="ws-proper">
+        <button class="wizard-back" onclick="wizardBack('ws-0')">← 이전으로</button>
+        <p class="wizard-q">베이스를 골라주세요.</p>
+        <div class="wizard-options">
+          <button class="wizard-option" onclick="wizardResult('proper-cocktail')">클래식 칵테일 <small>진, 럼, 위스키 베이스 칵테일</small></button>
+          <button class="wizard-option" onclick="wizardResult('proper-bitter')">쌉쌀하고 강렬하게 <small>드라이 마티니, 네그로니 계열</small></button>
+          <button class="wizard-option" onclick="wizardResult('proper-smoky')">스모키하게 <small>피트 위스키 또는 스모키 칵테일</small></button>
+        </div>
+      </div>
+      <div class="wizard-step" id="ws-whiskey">
+        <button class="wizard-back" onclick="wizardBack('ws-0')">← 이전으로</button>
+        <p class="wizard-q">위스키를 마셔보신 경험이 있으신가요?</p>
+        <div class="wizard-options">
+          <button class="wizard-option" onclick="wizardResult('whiskey-beginner')">처음이에요 / 입문자예요 <small>부드럽고 접근하기 좋은 것</small></button>
+          <button class="wizard-option" onclick="wizardGo('whiskey-exp')">어느 정도 마셔봤어요 <small>스타일로 골라볼게요</small></button>
+        </div>
+      </div>
+      <div class="wizard-step" id="ws-whiskey-exp">
+        <button class="wizard-back" onclick="wizardBack('ws-whiskey')">← 이전으로</button>
+        <p class="wizard-q">어떤 스타일을 선호하세요?</p>
+        <div class="wizard-options">
+          <button class="wizard-option" onclick="wizardResult('whiskey-sherry')">달콤한 셰리 / 와인 캐스크 <small>과일향, 풍부한 단맛</small></button>
+          <button class="wizard-option" onclick="wizardResult('whiskey-peated')">스모키하고 강렬한 피트 <small>아일라, 캠벨타운 스타일</small></button>
+          <button class="wizard-option" onclick="wizardResult('whiskey-fruity')">깔끔하고 과일향 <small>스페이사이드, 하이랜드</small></button>
+          <button class="wizard-option" onclick="wizardResult('whiskey-japanese')">부드럽고 섬세한 <small>재패니즈 / 아시아 위스키</small></button>
+        </div>
+      </div>
+      <div class="wizard-step" id="ws-result">
+        <button class="wizard-back" onclick="wizardReset()">← 처음으로</button>
+        <div class="wizard-result">
+          <h3 id="wizard-result-title"></h3>
+          <div id="wizard-result-items"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFO -->
+<section id="info">
+  <div class="container">
+    <p class="section-label">Visit</p>
+    <h2 class="section-title">찾아오시는 길</h2>
+    <div class="info-grid">
+      <div class="info-block">
+        <div class="info-block-title">영업 시간</div>
+        <div class="hours-row"><span class="hours-day">일 — 목</span><span class="hours-time">19:00 — 02:00</span></div>
+        <div class="hours-row"><span class="hours-day">금 — 토</span><span class="hours-time">19:00 — 03:00</span></div>
+      </div>
+      <div class="info-block">
+        <div class="info-block-title">위치</div>
+        <p>인천광역시 서구<br>중봉대로586번길 9-19<br>리버프라자 1층<br><strong>우스케바</strong> (카페인중독 옆)</p>
+      </div>
+      <div class="info-block">
+        <div class="info-block-title">차량</div>
+        <p>내비 검색: <strong>청라 리버프라자</strong><br>주차는 리버프라자 주차장 이용<br>(기본 2시간 제공)</p>
+      </div>
+      <div class="info-block">
+        <div class="info-block-title">대중교통</div>
+        <p>인천공항철도 <strong>청라국제도시역</strong> 1번 출구<br>→ <strong>904번 버스</strong> 탑승<br>→ 청라1동 주민센터 정류장 하차<br>→ 도보 1분 · 리버프라자 1층</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESERVE -->
+<section id="reserve">
+  <div class="container">
+    <p class="section-label">Reservation</p>
+    <h2 class="section-title">예약 · 문의</h2>
+    <p class="reserve-note">
+      예약 및 위치 문의는 전화로 연락주세요.<br>
+      단체 방문, 키핑, 코키지 등 사전 문의도 환영합니다.
+    </p>
+    <a href="tel:01042505596" class="call-btn">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.81 19.79 19.79 0 01.01 1.18 2 2 0 012 0h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.09 7.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 14.92v2z"/></svg>
+      010-4250-5596
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Uisce Beatha</div>
+  <div class="social-links">
+    <a href="https://www.instagram.com/uiscebeatha_bar" target="_blank" rel="noopener">INSTAGRAM</a>
+    <a href="https://blog.naver.com/usicebeatha" target="_blank" rel="noopener">NAVER BLOG</a>
+  </div>
+  <div class="footer-info">
+    인천광역시 서구 중봉대로586번길 9-19 리버프라자 1층<br>
+    © 2023 Uisce Beatha. All rights reserved.
+  </div>
+</footer>
+
+<script src="menu-data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

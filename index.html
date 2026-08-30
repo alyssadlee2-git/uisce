@@ -630,6 +630,41 @@
     .map-btn-naver:hover { background: #03C75A; color: #000; }
     .map-btn-kakao { color: #FEE500; border-color: #FEE50022; }
     .map-btn-kakao:hover { background: #FEE500; color: #000; }
+    /* LOADING */
+    #loading {
+      position: fixed;
+      inset: 0;
+      background: var(--bg);
+      z-index: 999;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+    }
+    .loading-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.15em;
+      color: var(--fg);
+    }
+    .loading-bar {
+      width: 80px;
+      height: 1px;
+      background: var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .loading-bar::after {
+      content: '';
+      position: absolute;
+      left: -40px;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      animation: loading 1.2s ease-in-out infinite;
+    }
+    @keyframes loading { 0%{left:-40px} 100%{left:80px} }
     .keeping-note {
       background: var(--card);
       border: 1px solid var(--border);
@@ -643,6 +678,12 @@
   </style>
 </head>
 <body>
+
+<!-- LOADING -->
+<div id="loading">
+  <div class="loading-logo">Uisce Beatha</div>
+  <div class="loading-bar"></div>
+</div>
 
 <!-- NAV -->
 <nav>
@@ -920,6 +961,7 @@
 </footer>
 
 <script src="menu-data.js"></script>
+<script src="sheets-loader.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

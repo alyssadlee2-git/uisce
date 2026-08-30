@@ -67,6 +67,9 @@ function otherItemHTML(item) {
     </div>`;
 }
 
+// ─── RENDER ALL (called after data loads) ────────────────────────────────────
+function renderAll() {
+
 // ─── RENDER SIGNATURE ─────────────────────────────────────────────────────────
 document.getElementById('render-signature').innerHTML =
   SIGNATURE.map(menuItemHTML).join('');
@@ -187,6 +190,8 @@ document.getElementById('render-bottle').innerHTML =
     show(btn.dataset.cat);
   });
 })();
+
+} // end renderAll()
 
 // ─── RECOMMENDATION MODE TOGGLE ───────────────────────────────────────────────
 document.getElementById('btn-tag-mode').addEventListener('click', () => {
@@ -395,3 +400,14 @@ function wizardResult(key) {
       </div>`).join('');
   document.getElementById('ws-result').classList.add('active');
 }
+
+// ─── ASYNC INIT ───────────────────────────────────────────────────────────────
+(async function init() {
+  const loading = document.getElementById('loading');
+  loading.style.display = 'flex';
+  if (typeof loadMenuFromSheets === 'function') {
+    await loadMenuFromSheets();
+  }
+  loading.style.display = 'none';
+  renderAll();
+})();
